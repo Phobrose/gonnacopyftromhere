@@ -1,0 +1,98 @@
+{{ define "head" }}
+    {{ $gists := getJSON "https://api.github.com/users/sussycatgirl/gists" }}
+    {{ $postCount := len .Pages }}
+    {{ $gistCount := len $gists }}
+    {{ $readingTime := 0 }}
+    {{ range .Pages }}
+        {{ if not (eq .Params.hidden true) }}
+            {{ $readingTime = add $readingTime .ReadingTime }}
+        {{ end }}
+    {{ end }}
+    <meta property="og:title" content="Posts - lea.pet" />
+    <meta
+        property="og:description"
+        content="{{ $postCount }} post{{ if ne $postCount 1 }}s{{ end }} and {{ $gistCount }} gist{{ if ne $gistCount 1 }}s{{ end }} with a total reading time of {{ $readingTime }} minute{{ if ne $readingTime 1 }}s{{ end }}"
+    />
+    <meta property="og:url" content="{{ .RelPermalink }}" />
+
+
+    {{ range .AlternativeOutputFormats -}}
+        {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+{{ end }}
+
+{{ define "main" }}
+<main style="margin-bottom: 16px;">
+    <div style="display: flex; flex-direction: row; align-items: flex-end;">
+        <h1>Posts</h1>
+        <a href="/posts/index.xml" style="margin-bottom: 6px; padding-left: 6px; opacity: 0.8;" target="_blank">
+            <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M6.18,15.64A2.18,2.18 0 0,1 8.36,17.82C8.36,19 7.38,20 6.18,20C5,20 4,19 4,17.82A2.18,2.18 0 0,1 6.18,15.64M4,4.44A15.56,15.56 0 0,1 19.56,20H16.73A12.73,12.73 0 0,0 4,7.27V4.44M4,10.1A9.9,9.9 0 0,1 13.9,20H11.07A7.07,7.07 0 0,0 4,12.93V10.1Z" />
+            </svg>
+        </a>
+    </div>
+
+    {{ $items := slice }}
+    {{ $gists := getJSON "https://api.github.com/users/sussycatgirl/gists" }}
+
+    {{ range .Pages }}
+        {{/* Posts */}}
+        {{ if not (eq .Params.hidden true) }}
+            {{
+                $item := dict
+                    "isGist" false
+                    "PublishDate" .PublishDate
+                    "ReadingTime" .ReadingTime
+                    "Draft" .Draft
+                    "RelPermalink" .RelPermalink
+                    "Title" .Title
+                    "Summary" .Summary
+                    "Params" .Params
+            }}
+            {{ $items = $items | append $item }}
+        {{ end }}
+    {{ end }}
+
+    {{ range $gists }}
+        {{/* Gists */}}
+        {{
+            $item := dict
+                "isGist" true
+                "PublishDate" (.created_at | time.AsTime)
+                "RelPermalink" .html_url
+                "Summary" .description
+        }}
+        {{ $items = $items | append $item }}
+    {{ end }}
+
+    {{ range sort $items "PublishDate" "desc" }}
+        <hr />
+
+        <article class="article-card">
+            <header>
+                <span class="text">
+                    {{ .PublishDate.Format "January 2, 2006" }} ·
+                    {{ if .isGist }}
+                        Gist
+                    {{ else }}
+                        {{ if (isset .Params "author") }}
+                            By {{ .Params.author }} ·
+                        {{ end }}
+                        {{ .ReadingTime }} minute{{ if ne .ReadingTime 1 }}s{{ end }}
+                    {{ end }}
+                </span>
+                {{ if .Draft }}
+                    <span> · Draft</span>
+                {{ end }}
+                <a href="{{ .RelPermalink }}" style="text-decoration: none;"><h3>{{ .Title }}</h3></a>
+            </header>
+
+            <div>
+                <p>{{ .Summary }} <a href="{{ .RelPermalink }}" target="{{ if .isGist }}_blank{{ else }}_self{{ end }}">
+                    {{ if .isGist }}View{{ else }}Read more{{ end }} &rsaquo;
+                </a></p>
+            </div>
+        </article>
+    {{ end }}
+</main>
+{{ end }}

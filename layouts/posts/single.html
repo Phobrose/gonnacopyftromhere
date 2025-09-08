@@ -1,0 +1,61 @@
+{{ define "head" }}
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Summary }}" />
+    <meta property="og:url" content="{{ .RelPermalink }}" />
+{{ end }}
+
+{{ define "main" }}
+    <script src="https://giscus.app/client.js"
+        data-repo="sussycatgirl/lea.pet"
+        data-repo-id="R_kgDOIjWFaA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOIjWFaM4CS5V9"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+    </script>
+    <main>
+        <header>
+            <h1>{{ .Title }}</h1>
+            {{ if (isset .Params "author") }}
+            <h4 style="font-size: 16px;">
+                <i>
+                    {{ if (isset .Params "author_url") }}
+                        By <a href="{{ .Params.author_url }}" target="_blank" rel="author"><b>{{ .Params.author }}</b></a>
+                    {{ else }}
+                        By <b>{{ .Params.author }}</b>
+                    {{ end }}
+                </i>
+            </h4>
+            {{ end }}
+            <h4>
+                {{ $publishDate := .PublishDate.Format "January 2, 2006" }}
+                {{ $publishDate }} ·
+                {{ if ne $publishDate (.Lastmod.Format "January 2, 2006") }}
+                    {{ $editFormat := "January 2" }}
+                    {{ if ne (.PublishDate.Format "2006") (.Lastmod.Format "2006") }}
+                        {{ $editFormat = "January 2, 2006" }}
+                    {{ end }}
+                    edited {{ .Lastmod.Format $editFormat }} ·
+                {{ end }}
+                {{ .ReadingTime }} minute{{ if ne .ReadingTime 1 }}s{{ end }} ·
+                <a href="https://github.com/sussycatgirl/lea.pet/commits/master/content/{{ .File.Path }}" target="_blank">History</a>
+            </h4>
+        </header>
+
+        <hr />
+
+        <div class="article">
+            {{ .Content }}
+        </div>
+
+        <div class="giscus" style="padding-bottom: 20px;"></div>
+    </main>
+{{ end }}

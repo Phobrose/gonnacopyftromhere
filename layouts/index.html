@@ -1,0 +1,90 @@
+{{ define "head" }}
+{{ $css := resources.Get "css/index.scss" | resources.ToCSS | resources.Fingerprint }}
+<link
+    rel="stylesheet"
+    type="text/css"
+    href='{{ $css.RelPermalink }}'
+/>
+<meta property="og:title" content="Hi. I'm Lea." />
+<meta property="og:description" content="Check out my blog, or get in contact with me." />
+<meta property="og:image" content='{{ absURL "/favicon-larger.png" }}' />
+<meta property="og:image:width" content="80" />
+<meta property="og:image:height" content="74" />
+{{ end }}
+
+{{ define "main" }}
+<div class="background-video">
+    <!--
+        All of these assets are stolen from Steam
+        but it's ok because I bought them
+        (with Steam points)
+        :)
+        https://store.steampowered.com/points/shop/c/backgrounds/reward/223914
+    -->
+    <video autoplay muted loop poster="/bg-poster.jpg">
+        <source src="/bg.webm" type="video/webm" />
+        <source src="/bg.mp4" type="video/mp4" />
+    </video>
+</div>
+<div class="button" id="play-button" style="position: fixed; right: 16px; bottom: 16px; display: none;" onclick="startPlayback()">
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 1em;" viewBox="0 0 24 24"><title>play</title><path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" /></svg>
+</div>
+<main>
+    <br style="display: none;" /> <!-- Specifically for readability with terminal browsers -->
+    <div class="greeting-area">
+        <div class="greeting-flex-container">
+            <div class="greeting-welcome">
+                <span class="main-text">Hi.</span>
+                <span class="sub-text">I'm Lea.</span>
+            </div>
+
+            <div class="greeting-socials">
+                {{ range $index, $data := $.Site.Data.socials.items }}
+                    {{ partial "index/social-link.html" (dict "delay" (math.Add 1 $index) "svg" $data.name "href" $data.url "content" $data.label "obscured" $data.obscured) }}
+                {{ end }}
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // boredom
+    const context = new AudioContext();
+    const playButton = document.getElementById("play-button");
+    playButton.style.display = "unset";
+
+    const startPlayback = () => {
+        playButton.onclick = undefined;
+        playButton.style.transform = "translateY(100px)";
+        playButton.style.opacity = "0";
+
+        console.log("Loading first file");
+        fetch("/bg_start.mp3")
+            .then(data => data.arrayBuffer())
+            .then(buffer => context.decodeAudioData(buffer))
+            .then(buffer => {
+                const startSource = context.createBufferSource();
+                startSource.buffer = buffer;
+                startSource.connect(context.destination);
+                startSource.start();
+                console.log("Starting playback and loading second file");
+
+                fetch("/bg_loop.mp3")
+                    .then(data => data.arrayBuffer())
+                    .then(buffer => context.decodeAudioData(buffer))
+                    .then(buffer => {
+                        console.log("Second file loaded");
+                        const loopSource = context.createBufferSource();
+                        loopSource.connect(context.destination);
+                        loopSource.buffer = buffer;
+                        loopSource.loop = true;
+
+                        startSource.onended = () => {
+                            console.log("Initial playback ended, playing loop");
+                            loopSource.start();
+                        }
+                    });
+            });
+        }
+</script>
+{{ end }}

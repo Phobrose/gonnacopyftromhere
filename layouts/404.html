@@ -1,0 +1,19 @@
+{{ define "head" }}
+    <meta property="robots" content="noindex">
+{{ end }}
+
+{{ define "main" }}
+    <main>
+        <div class="container-404">
+            <h1>Aw balls!</h1>
+            <span class="bg-text-404">404</span>
+            <span style="display: none;">-</span>   <!-- For accessibility - Terminal browsers and screen readers -->
+                                                    <!-- don't know about the special styling on the 404 span above -->
+            <span>The requested page could not be found. <a id="go-back" onclick="history.back();" href="/">Go back</a></span>
+        </div>
+    </main>
+
+    {{- if $plausible := .Site.Params.plausible }}
+        <script>plausible("404",{ props: { path: document.location.pathname } });</script>
+    {{ end }}
+{{ end }}
