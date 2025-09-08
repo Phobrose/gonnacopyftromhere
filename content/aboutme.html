@@ -1,0 +1,300 @@
+---
+title: "About me"
+---
+
+<!-- trololo -->
+<script src="/js/dayjs.min.js"></script>
+<script src="/js/relativeTime.min.js"></script>
+
+<style>
+    .lesbian {
+        background-clip: text !important;
+        -webkit-background-clip: text !important;
+        color: transparent;
+        background: linear-gradient(90deg,#d52d00,#ef7627,#ff9a56,#ffffff,#d162a4,#b55690,#a30262);
+    }
+
+    .greeting-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        padding: 16px;
+        margin: 16px;
+
+        background-color: rgb(var(--secondary-background));
+        border-radius: 16px;
+    }
+
+    .pfp-container {
+        flex-shrink: 1;
+        display: flex;
+    }
+
+    .pfp {
+        border-radius: 16px;
+        height: 100px;
+        z-index: 1001;
+        pointer-events: none;
+    }
+
+    .greeting-container .infoblock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-grow: 1;
+    }
+
+    .greeting-container .text {
+        text-align: center;
+        line-height: 28px;
+        margin: 0;
+    }
+
+    .socials {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        margin-top: 10px;
+        max-width: 100%;
+    }
+
+    .socials-svg-outer {
+        width: 24px;
+        display: flex;
+        flex-direction: column;
+        color: rgb(var(--primary-foreground));
+    }
+
+
+    .socials-svg {
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        transition: 0.2s color;
+    }
+
+    .socials:has(.socials-svg:hover) .socials-svg:not(:hover) {
+        color: rgb(var(--primary-foreground)) !important;
+    }
+    .socials:has(.socials-svg:hover) .socials-divider {
+        filter: grayscale(70%);
+    }
+
+    .socials-svg:hover {
+        transform: scale(1.05);
+    }
+
+    .socials-divider {
+        content: " ";
+        height: 3px;
+        width: 20px;
+        border-radius: 2px;
+        filter: grayscale(40%);
+        
+        transition: 0.2s filter linear, 0.2s -webkit-filter linear, 0.2s width linear;
+    }
+
+    @media (max-width: 600px) {
+        .socials-divider {
+            width: 3px;
+        }
+    }
+
+    @media (max-width: 490px) {
+        .greeting-container {
+            flex-direction: column;
+        }
+    }
+
+    .cat-container {
+        width: 100px;
+        height: 100px;
+        margin-left: -100px;
+        z-index: 1000;
+        pointer-events: none;
+        user-select: none;
+        position: relative;
+    }
+
+    .pfp-cat {
+        z-index: 1000;
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        text-align: center;
+    }
+</style>
+
+<div>
+    <div class="greeting-container">
+        <div
+            class="pfp-container"
+            onclick="cat()"
+            onmousedown="catdown()"
+            onmouseup="catup()"
+        >
+            <img
+                src="/pfp.png"
+                class="pfp"
+            />
+            <div class="cat-container" id="cat-container"></div>
+        </div>
+        <div class="infoblock">
+            <p class="text">
+                <span>
+                    <span class="big-text">Haii!! 👋</span> I'm Sera/Eden, an <b>19</b> year old 🏳️‍⚧ trans catgirl from Canada! 
+                </span>
+
+                <br />
+
+                <span>
+                    Meow meow mrrp~
+                    HRT since <b id="hrt-counter">May 2025</b>,
+
+                    <script>
+                        dayjs.extend(window.dayjs_plugin_relativeTime)
+
+                        const elem = document.getElementById("hrt-counter");
+                        elem.innerText = dayjs('2025-05-16').fromNow();
+                    </script>
+
+                    <span class="lesbian"><b>lesbian</b></span>, taken by Mel and Emily <3
+            {{< about-horizontal-socials >}}
+        </div>
+    </div>
+
+    <p>
+        <!-- :3
+        <blockquote style="border-inline-start: 4px solid #f0d298; background-color: #e8c77a36;">
+            <p>⚠️ Anything I say is a joke. Unless you agree with it, then it's real. But otherwise it's a joke.</p>
+        </blockquote>
+        -->
+        <span>
+            I go by <code>Seraphim VI</code> and <code>Sera</code> on the internet, and my socials are <a href="/">linked on this site</a>.
+            I mainly spend my time shitposting, making art, and trying to learn new stuff, so if you're into that feel free to talk me :3
+        </span>
+
+        <br />
+
+        <span>
+            Diagnosed with Schizoaffective Bipolar, ADHD, and Autism. So if for some reason you are wondering why I am like this, there you go
+        </span>
+    </p>
+
+    <p>
+        I'm a music artist with big ambitions and chronic lack of motivation to touch my projects.
+        <br />
+        Golf Wang enthusiast, still in college, big time petplay enjoyer. Big tech can go to hell.
+        <br />
+        I run <a href="https://discord.gg/enby">Queer Dynasty!</a>, an invite-only Discord for my friends!
+    </p>
+
+    <h3>Contact</h3>
+    <p>
+        If you want to get in touch with me, feel free to use any of the socials linked on the landing page. <br />
+        If it's urgent, please dm on discord me at <code>seraphim_vi</code>. <br />
+        Otherwise, feel free to drop by in my DMs - I'm always down to talk &lt;3
+    </p>
+
+    <h3>Credits and Licenses</h3>
+    <ul>
+        <li>
+            <b>Landing page background art:</b>
+            <a href="https://store.steampowered.com/points/shop/c/backgrounds/reward/223914" target="_blank">"Muse Radio" Steam Points Shop profile background</a>
+        </li>
+        <li>
+            <b>Landing page background music:</b>
+            <a href="https://seekingillenium.bandcamp.com/track/taking-me-higher" target="_blank">Illenium - Taking Me Higher</a>
+        </li>
+        <li>
+            <b>Neocat Emojis</b>
+            <a href="https://volpeon.ink/emojis/neocat/" target="_blank">by Volpeon</a>
+        </li>
+        <li>
+            <b>Fonts:</b>
+            <a href="https://fonts.google.com/specimen/Lekton" target="_blank" style="font-family: 'Lekton';">Lekton</a>
+            and
+            <a href="https://fonts.google.com/specimen/Quicksand" target="_blank" style="font-family: 'Quicksand';">Quicksand</a>
+        </li>
+        <li>
+            <b><a href="https://day.js.org/" target="_blank">day.js </a>(AGPL)
+        </li>
+        <li>
+            <b>Site built with</b>
+            <a href="https://gohugo.io/" target="_blank">Hugo</a>
+        </li>
+        <li>
+            <b><a href="https://github.com/sussycatgirl/lea.pet" target="_blank">Source Code, all credit to Lea, I suck at this sort of thing</a></b> &lt;3
+        </li>
+    </ul>
+    <center><h1>❤️</h1></center>
+</div>
+
+<script>
+    let rot = 0;
+    let holdtime = 0;
+    let down = false;
+    let ignoreNext = false;
+
+    setInterval(() => {
+        if (down) {
+            holdtime++;
+
+            if (holdtime > 5) {
+                ignoreNext = true;
+                cat(true);
+            }
+        }
+    }, 100);
+
+    function catdown() {
+        down = true;
+    }
+
+    function catup() {
+        rot = 0;
+        holdtime = 0;
+        down = false;
+    }
+
+    function cat(wave) {
+        while (rot > 360) rot -= 360;
+        if (down && !wave) return;
+        if (ignoreNext && !wave) {
+            ignoreNext = false;
+            return;
+        }
+
+        const catContainer = document.getElementById("cat-container");
+        const rotation = wave ? rot++ * 10 : Math.random() * 360;
+        const cat = document.createElement("span");
+        cat.innerText = "🐈";
+        cat.classList.add("pfp-cat");
+        catContainer.appendChild(cat);
+
+        let prev = null;
+        let x = 0;
+        const animate = (ts) => {
+            const elapsed = prev != null ? ts - prev : 0;
+            prev = ts;
+
+            x += elapsed / 10;
+            const pos = -(x * (x - 100)) / 50;
+
+            cat.style.transform = `rotate(${rotation}deg) translateY(-${pos}px)`;
+
+            if (x < 100) {
+                requestAnimationFrame(animate);
+            } else {
+                cat.remove();
+            }
+        }
+
+        requestAnimationFrame(animate);
+    }
+</script>

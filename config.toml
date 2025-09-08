@@ -1,0 +1,23 @@
+baseURL = 'https://me.lea.pet/'
+languageCode = 'en-us'
+title = 'lea.pet'
+enableGitInfo = true
+disableKinds = [ "taxonomy", "term" ]
+enableRobotsTXT = true
+
+[params.plausible]
+  domain = "me.lea.pet"
+  script = "https://stats.lea.pet/js/stats.js"
+  api = "https://stats.lea.pet/api/stats"
+
+[markup]
+  [markup.highlight]
+    noClasses = false
+
+[author]
+  name = "Lea"
+
+[sitemap]
+  filename = 'sitemap.xml'
+  changefreq = 'weekly'
+  priority = 0.5

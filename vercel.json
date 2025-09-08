@@ -1,0 +1,25 @@
+{
+    "build": {
+        "env": {
+            "HUGO_VERSION": "0.101.0"
+        }
+    },
+    "redirects": [
+        {
+            "source": "/wp-(admin|login)(\\.php)?",
+            "destination": "https://hil-speed.hetzner.com/10GB.bin",
+            "permanent": false
+        }
+    ],
+    "headers": [
+        {
+            "source": "/content-bg(|-light)\\.jpg",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=300"
+                }
+            ]
+        }
+    ]
+}
