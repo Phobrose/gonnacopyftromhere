@@ -1,0 +1,189 @@
+@import "vars";
+@import "fonts";
+@import "navbar";
+@import "footer";
+@import "animations";
+@import "404";
+@import "markdown";
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $primary-background;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.bg-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -50;
+    filter: blur(12px);
+    opacity: $bg-opacity;
+    width: 100%;
+    min-height: 100%;
+    content: $bg-image;
+}
+
+main {
+    max-width: $content-width;
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    padding: 0 16px;
+}
+
+main p {
+    line-height: 20px;
+    text-align: justify;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 180px);
+}
+
+.text, p, h1, h2, h3, h4, h5, h6 {
+    color: $primary-foreground;
+    font-family: $text-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 10px 0 5px 0;
+}
+
+h1 {
+    margin-top: 25px;
+}
+
+h2 {
+    margin-top: 20px;
+}
+
+h4 {
+    font-weight: 300;
+    font-size: 14px;
+}
+
+a:not(.no-link-styling) {
+    color: $color-link;
+    font-family: $text-font;
+    text-decoration: none;
+    transition: filter .3s;
+}
+
+a:not(.no-link-styling):hover {
+    text-decoration: underline;
+    cursor: pointer;
+    filter: brightness(1.2);
+}
+
+.no-link-styling {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+mark {
+    background-color: unset;
+    color: $color-mark;
+    text-shadow: 0 0 2px $color-mark;
+}
+
+hr {
+    width: 100%;
+    animation: hr_appear 0.8s cubic-bezier(.17,.84,.44,1);
+    color: $primary-foreground;
+}
+
+blockquote {
+    border-inline-start: 4px solid $primary-foreground;
+    background-color: rgba($secondary-background-rgb, 0.7);
+    border-radius: 6px;
+    margin-left: 0px;
+    margin-right: 0px;
+
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+blockquote > * {
+    padding: 8px 16px 8px 12px;
+}
+
+table {
+    color: $primary-foreground;
+    font-family: $text-font;
+    table-layout: fixed;
+    margin: 10px;
+    border-radius: 8px;
+    border-collapse: collapse;
+    overflow: hidden; /* <-- for whatever reason this makes border radius work */
+
+    thead {
+        font-size: 16px;
+        background-color: color-mix(in srgb, $primary-foreground 8%, $primary-background);
+        border-bottom: 1px solid color-mix(in srgb, $primary-foreground 0.3, transparent);
+    }
+
+    td {
+        padding: 6px;
+    }
+
+    th {
+        padding: 8px;
+    }
+
+    tbody tr {
+        transition: background-color 0.2s;
+
+        &:nth-child(even) {
+            background-color: color-mix(in srgb, $primary-foreground 15%, $primary-background);
+        }
+
+        &:nth-child(odd) {
+            background-color: color-mix(in srgb, $primary-foreground 10%, $primary-background);
+        }
+
+        &:hover {
+            background-color: color-mix(in srgb, $primary-foreground 18%, $primary-background);
+            color: color-mix(in srgb, $primary-foreground 50%, var(--strongest-color));
+        }
+    }
+}
+
+.article-card {
+    margin-top: 20px;
+}
+
+.crypto-container-outer code, .copy-button {
+    color: $primary-foreground;
+}
+
+.big-text {
+    font-size: 24px;
+}
+
+.css-warning {
+    width: 100%;
+    margin: 0;
+    background-color: #924546;
+    color: #ffffff;
+    font-family: $text-font;
+    font-size: 16px;
+    padding: 4px;
+    padding-left: 8px;
+}
+
+@supports (background-color: color-mix(in srgb, $primary-foreground 8%, $primary-background)) {
+    .css-warning {
+        display: none;
+    }
+}

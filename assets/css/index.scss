@@ -1,0 +1,185 @@
+@import "vars";
+
+@keyframes social-entry-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+main {
+    justify-content: center !important;
+    flex-direction: row !important;
+}
+
+.bg-image {
+    display: none;
+}
+
+body {
+    overflow: hidden;
+}
+
+.greeting-area {
+    width: 100%;
+    max-width: 75%;
+    height: 100vh;
+}
+
+.greeting-flex-container {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    top: calc(50% - 2vw);
+    transform: translateY(-50%);
+    padding: 32px;
+    border-radius: 24px;
+    background-color: rgba($secondary-background-rgb, $home-card-opacity);
+    backdrop-filter: blur($home-card-blur);
+}
+
+.greeting-welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 200px;
+    transition: transform 0.2s;
+    margin: 0 32px;
+}
+
+.greeting-welcome:hover {
+    transform: scale(1.03);
+}
+
+.greeting-welcome span {
+    font-size: 50px;
+    break-after: always;
+    font-family: "Quicksand", sans-serif;
+    user-select: none;
+}
+
+.greeting-welcome .main-text {
+    color: $primary-foreground;
+    font-weight: 100;
+}
+
+.greeting-welcome .sub-text {
+    color: $primary-foreground;
+    font-weight: 300;
+}
+
+.greeting-socials {
+    max-width: 300px;
+    justify-content: center;
+
+    // 8px padding at the bottom looks weird, padding of 0 messes up the hover underline rendering, 2px seems to work fine
+    .greeting-socials-container:last-of-type {
+        padding-bottom: 2px !important;
+    }
+}
+
+.greeting-socials-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-bottom: 8px;
+    min-width: 250px;
+    opacity: 0;
+    animation: social-entry-fade-in .5s;
+    animation-fill-mode: forwards;
+    transition: transform .2s, margin .2s;
+}
+
+.greeting-socials-container.hidden {
+    opacity: 0;
+}
+
+.greeting-socials-container:hover {
+    transform: scale(1.05);
+}
+
+.greeting-socials-image-container {
+    width: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.greeting-socials-image {
+    height: 24px;
+    padding-right: 12px;
+    color: $primary-foreground !important;
+    display: flex;
+    justify-content: center;
+}
+
+.greeting-socials-text {
+    font-size: 20px;
+    transition: color .2s;
+    font-family: "Quicksand", sans-serif !important;
+    color: $primary-foreground !important;
+}
+
+.greeting-socials-text:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 800px) {
+    .greeting-flex-container {
+        display: unset;
+        position: absolute;
+        margin-top: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 20vw;
+    }
+
+    .greeting-flex-container .greeting-socials {
+        margin-top: 13vw;
+    }
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    z-index: -1000;
+    width: 100%;
+    height: 100%;
+
+    video {
+        width: 100%;
+        min-height: 100%;
+        object-fit: cover;
+    }
+}
+
+.navbar {
+    box-sizing: unset !important;
+    background-color: transparent !important;
+    padding: 8px 0 !important;
+
+    .title, .links {
+        background-color: rgba($secondary-background-rgb, $home-card-opacity);
+        backdrop-filter: blur($home-card-blur);
+        border-radius: 8px;
+        padding: 12px 16px !important;
+        height: fit-content;
+    }
+}
+
+.navbar-inner {
+    max-width: 100% !important;
+}
+
+.button {
+    background-color: rgba($secondary-background-rgb, $home-card-opacity);
+    backdrop-filter: blur($home-card-blur);
+    color: $primary-foreground;
+    border-radius: 8px;
+    padding: 12px 16px !important;
+    height: fit-content;
+    user-select: none;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.button:hover {
+    transform: scale(1.04);
+    opacity: 1;
+}

@@ -1,0 +1,54 @@
+@import "vars";
+
+.navbar {
+    height: 40px;
+    //background-color: $secondary-background;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.navbar-inner {
+    max-width: $content-width;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    padding: 0 16px;
+}
+
+.navbar span {
+    font-family: $text-font;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.navbar .links {
+    align-content: flex-end;
+    display: flex;
+    padding-top: 2px;
+
+    :nth-child(1) {
+        margin-left: 0;
+    }
+}
+
+.navbar .links a {
+    margin-left: 8px;
+}
+
+
+/* Hide "lea.pet" title when the screen is too small */
+@media (max-width: 420px) {
+    .title {
+        display: none;
+    }
+    .links {
+        width: calc(100% - 16px);
+        justify-content: center;
+    }
+    .navbar-inner {
+        justify-content: center !important;
+    }
+}

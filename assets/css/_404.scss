@@ -1,0 +1,23 @@
+.bg-text-404 {
+    user-select: none;
+    font-size: 200px;
+    color: $primary-foreground;
+    opacity: 0.4;
+}
+
+.container-404 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin-top: 5vh;
+    color: $primary-foreground;
+    opacity: 0.85;
+    font-family: $text-font;
+}
+
+@media (max-width: 370px) {
+    .bg-text-404 {
+        font-size: 100px;
+    }
+}
